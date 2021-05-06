@@ -10,6 +10,7 @@ const driver: WebDriver = new Builder()
 const page = new BasePage(driver);
 
 beforeAll(async () => {
+    await driver.manage().window().maximize();
     await driver.get(page.url);
 });
 
@@ -20,5 +21,5 @@ describe("My test suite", ()=> {
 })
 
 afterAll(async () => {
-  await driver.quit();
+    await driver.quit();
 });

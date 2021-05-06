@@ -1,5 +1,9 @@
 import { By, until, WebDriver } from "selenium-webdriver";
 
+/**
+ * This is a class we use for working with base page elements and common methods that can be used on any page
+ */
+
 export class BasePage {
   driver: WebDriver;
   url: string = "https://www.target.com/";
