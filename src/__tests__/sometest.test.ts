@@ -10,7 +10,7 @@ const driver: WebDriver = new Builder()
 
 const basePage = new BasePage(driver);
 const resultsPage = new ResultsPage(driver);
-const searchTerm: string = "suitcase";
+const searchTerm: string = "candle";
 
 beforeAll(async () => {
     //await driver.manage().window().maximize(); //optional
