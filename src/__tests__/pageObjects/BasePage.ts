@@ -1,4 +1,4 @@
-import { By, Key, until, WebDriver } from "selenium-webdriver";
+import { By, Key, until, WebDriver, WebElement } from "selenium-webdriver";
 
 /**
  * This is a class we use for working with base page elements and common methods that can be used on any page
@@ -35,12 +35,18 @@ export class BasePage {
 
   async sendKeys(elementBy: By, keys: string) {
     await this.driver.wait(until.elementLocated(elementBy));
-    await (await this.driver.findElement(elementBy)).clear();
-    return this.driver.findElement(elementBy).sendKeys(keys);
+    //await (await this.driver.findElement(elementBy)).clear(); // won't always work here
+    await this.driver.findElement(elementBy).sendKeys(Key.chord(Key.CONTROL,"a", Key.DELETE));
+    await this.driver.findElement(elementBy).sendKeys(keys);
   };
 
   async click(elementBy: By) {
     await this.driver.wait(until.elementLocated(elementBy));
     return (await this.driver.findElement(elementBy)).click();
   };
+
+  async scrollIntoView (elementBy: By) {
+    var element: WebElement = await this.driver.findElement(elementBy);
+    await this.driver.executeScript("arguments[0].scrollIntoView();", element);
+  }
 }
