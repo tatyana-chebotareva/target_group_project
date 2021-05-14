@@ -45,8 +45,12 @@ export class BasePage {
     return (await this.driver.findElement(elementBy)).click();
   };
 
-  async scrollIntoView (elementBy: By) {
+  async scrollIntoViewBy (elementBy: By) {
     var element: WebElement = await this.driver.findElement(elementBy);
+    await this.driver.executeScript("arguments[0].scrollIntoView();", element);
+  }
+
+  async scrollIntoView (element: WebElement) {
     await this.driver.executeScript("arguments[0].scrollIntoView();", element);
   }
 }
