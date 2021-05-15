@@ -1,0 +1,14 @@
+[
+  {
+    "email": "qa@dvm.com",
+    "firstName": "John",
+    "lastName": "Gardner",
+    "password": "JGpassword"
+  },
+  {
+    "email": "gproject@dvm.com",
+    "firstName": "David",
+    "lastName": "Mayhew",
+    "password": "DMpassword"
+  }
+]

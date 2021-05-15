@@ -18,6 +18,8 @@ export class ResultsPage extends BasePage{
     item: By = By.css('[data-test="product-title"]');
     /** @prop {By} brandBy - locator for first story block on main page */
     brandBy: By = By.css('[href="#Brand"]');
+    noResultsMessage: By = By.css('[data-test="NLRTransparentMessage"]');
+    addForShipping: By = By.xpath('//*[text()="Add for shipping"]');
 
     /**
      * Create results page
@@ -120,4 +122,19 @@ export class ResultsPage extends BasePage{
         await this.driver.wait(until.elementLocated(this.results));
         await this.driver.wait(until.elementLocated(this.numberOfResults));
     }    
+
+    async checkNoResults() {
+        await this.driver.sleep(1000);
+        await this.driver.wait(until.elementLocated(this.noResultsMessage)).then(()=>{console.log("No matching results")});
+    }
+
+    async addToCartShipping() {
+        await this.driver.sleep(1000);
+        let itemsForShipping: Array<WebElement> = await this.driver.findElements(this.addForShipping);
+        await this.scrollIntoView(itemsForShipping[0]);
+        await itemsForShipping[0].click();
+        await this.driver.sleep(1000);
+        await this.click(this.viewCart);
+        await this.driver.sleep(1000);
+    }
 }
