@@ -19,6 +19,17 @@ export class BasePage {
   footer: By = By.className("Footer__MenuItemsWrapper-sc-1an41vb-1");
   /** @prop {By} searchInput - locator for search field in a header */
   searchInput: By = By.id("search");
+  /** @prop {By} logo - locator for logo in header */
+  logo: By = By.id("home");
+  /** @prop {By} cart - locator for cart in header */
+  cart: By = By.id("cart");
+  /** @prop {By} accountMenu - locator for account menu */
+  accountMenu: By = By.id("account");
+  /** @prop {By} userName - locator for username (if logged in) or Sign in prompt */
+  userName: By = By.css('[sdata-test="accountUserName"]');
+  signIn: By = By.xpath('//div[text()="Sign in"]');
+  signOut: By = By.xpath('//div[text()="Sign out"]');
+  viewCart: By = By.css('[data-test="addToCartModalViewCartCheckout"]');
 
   /**
    * Create a basepage
@@ -45,6 +56,7 @@ export class BasePage {
    * @async @function checkLoadedPage
    */
   async checkLoadedPage() {
+    await this.driver.sleep(2000);
     await this.driver.wait(until.elementLocated(this.header));
     await this.driver.wait(until.elementLocated(this.storyBlock));
     await this.driver.wait(until.elementLocated(this.featuredCategories));
@@ -61,6 +73,11 @@ export class BasePage {
     await this.driver.wait(until.elementLocated(elementBy));
     //await (await this.driver.findElement(elementBy)).clear(); // won't always work here
     await this.driver.findElement(elementBy).sendKeys(Key.chord(Key.CONTROL,"a", Key.DELETE));
+    await this.driver.findElement(elementBy).sendKeys(keys);
+  };
+
+  async addKeys(elementBy: By, keys: string) {
+    await this.driver.wait(until.elementLocated(elementBy));
     await this.driver.findElement(elementBy).sendKeys(keys);
   };
 
@@ -102,5 +119,21 @@ export class BasePage {
     var element: WebElement = await this.driver.findElement(this.footer);
     await this.driver.executeScript("arguments[0].scrollIntoView();", element);
     await this.driver.sleep(2000);
+  }
+
+  async goToAuthPage() {
+    await this.click(this.accountMenu).then(async ()=> {
+      await this.driver.sleep(1000);
+      await this.click(this.signIn);
+      await this.driver.sleep(1000)
+    });
+  }
+
+  async signUserOut() {
+    await this.click(this.accountMenu).then(async ()=> {
+      await this.driver.sleep(1000);
+      await this.click(this.signOut);
+      await this.driver.sleep(1000)
+    });
   }
 }

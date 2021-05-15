@@ -29,10 +29,19 @@ export class ItemPage extends BasePage{
      * Check that product price, title, details block and Ship it button are displayed on product page
      * @async @function checkLoadedPage
      */
-    async checkLoadedPage() {        
+    async checkLoadedPage() {     
+        await this.driver.sleep(2000);   
         await this.driver.wait(until.elementLocated(this.price));
         await this.driver.wait(until.elementLocated(this.title));
         await this.driver.wait(until.elementLocated(this.about));
         await this.driver.wait(until.elementLocated(this.ship));
+    }
+
+    async shipIt() {
+        await this.driver.sleep(1000);   
+        await this.click(this.ship);        
+        await this.driver.sleep(1000);
+        await this.click(this.viewCart);
+        await this.driver.sleep(1000);
     }
 }
