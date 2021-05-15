@@ -51,7 +51,7 @@ describe("My test suite", () => {
         await basePage.search(searchTerm);  // search itself
         await resultsPage.checkResults(searchTerm); // validating results
         selectedItemText = await resultsPage.openItemPage(["90qt"]); // opening a page of the item from our results: first item that contain in its name listed strings
-        driver.sleep(3000)
+        await driver.sleep(3000)
         await itemPage.checkLoadedPage(); // checking that item page has some elements
         var productTitles = await driver.findElements(By.css('[data-test="product-title"]')); // getting product title elements
         expect(await productTitles[0].getText()).toEqual(selectedItemText); // validating product title matches name of previously selected item on results page
