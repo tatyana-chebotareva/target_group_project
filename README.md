@@ -43,16 +43,16 @@ The functionality we tes:
 
 We organized our tests using this structure:
 Tests
--data
---newUsers.json
---noResults.json
---users.json
--pageObjects
---AuthPage.ts
---BasePage.ts
---Cart.ts
---ItemPage.ts
---ResultsPage.ts
+- data
+-- newUsers.json
+-- noResults.json
+-- users.json
+- pageObjects
+-- AuthPage.ts
+-- BasePage.ts
+-- Cart.ts
+-- ItemPage.ts
+-- ResultsPage.ts
 tests.tests.ts
 authTests.tests.ts
 
