@@ -37,6 +37,10 @@ export class ItemPage extends BasePage{
         await this.driver.wait(until.elementLocated(this.ship));
     }
 
+    /**
+     * Add the item for shipping (if available)
+     * @async @function shipIt
+     */
     async shipIt() {
         await this.driver.sleep(1000);   
         await this.click(this.ship);        

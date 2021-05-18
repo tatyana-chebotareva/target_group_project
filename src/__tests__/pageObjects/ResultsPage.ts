@@ -13,7 +13,7 @@ export class ResultsPage extends BasePage{
     /** @prop {By} results - locator for results (items/products) */
     results: By = By.css('[data-test="product-list-container"]');
     /** @prop {By} numberOfResults - locator for first story block on main page */
-    numberOfResults: By = By.css('[data-test="numberOfSearchResults"]');
+    numberOfResults: By = By.css('[data-test="resultsHeading"]');
     /** @prop {By} item - locator for first story block on main page */
     item: By = By.css('[data-test="product-title"]');
     /** @prop {By} brandBy - locator for first story block on main page */
@@ -123,11 +123,19 @@ export class ResultsPage extends BasePage{
         await this.driver.wait(until.elementLocated(this.numberOfResults));
     }    
 
+    /**
+     * Check that there are no matching results
+     * @async @function checkNoResults
+     */
     async checkNoResults() {
         await this.driver.sleep(1000);
         await this.driver.wait(until.elementLocated(this.noResultsMessage)).then(()=>{console.log("No matching results")});
     }
 
+    /**
+     * Find the first product that is available for shipping and add it to cart
+     * @async @function addToCartShipping
+     */
     async addToCartShipping() {
         await this.driver.sleep(1000);
         let itemsForShipping: Array<WebElement> = await this.driver.findElements(this.addForShipping);

@@ -27,8 +27,11 @@ export class BasePage {
   accountMenu: By = By.id("account");
   /** @prop {By} userName - locator for username (if logged in) or Sign in prompt */
   userName: By = By.css('[sdata-test="accountUserName"]');
+  /** @prop {By} signIn - locator for sign in submenu (if logged out) */
   signIn: By = By.xpath('//div[text()="Sign in"]');
+  /** @prop {By} signOut - locator for sign out submenu (if logged in)*/
   signOut: By = By.xpath('//div[text()="Sign out"]');
+  /** @prop {By} viewCart - locator for cart in Add to cart window*/
   viewCart: By = By.css('[data-test="addToCartModalViewCartCheckout"]');
 
   /**
@@ -121,6 +124,10 @@ export class BasePage {
     await this.driver.sleep(2000);
   }
 
+  /**
+   * From Header menu select Account - Log in - and proceed to login page
+   * @async @function gotoAuthPage
+   */
   async goToAuthPage() {
     await this.click(this.accountMenu).then(async ()=> {
       await this.driver.sleep(1000);
@@ -129,6 +136,10 @@ export class BasePage {
     });
   }
 
+  /**
+   * From Header menu select Account - Log out - and proceed to logout
+   * @async @function signUserOut
+   */
   async signUserOut() {
     await this.click(this.accountMenu).then(async ()=> {
       await this.driver.sleep(1000);
