@@ -1,10 +1,10 @@
-import { BasePage } from "../__tests__/pageObjects/BasePage";
-import { ResultsPage } from "../__tests__/pageObjects/ResultsPage";
-import { ItemPage } from "../__tests__/pageObjects/ItemPage";
+import { BasePage } from "./pageObjects/BasePage";
+import { ResultsPage } from "./pageObjects/ResultsPage";
+import { ItemPage } from "./pageObjects/ItemPage";
 import { WebDriver, Builder, Capabilities, By } from "selenium-webdriver";
 import { Cart } from "./pageObjects/Cart";
 import { AuthPage } from "./pageObjects/AuthPage";
-import * as badSearchTerms from "../__tests__/data/badSearchTerms.json";
+import * as badSearchTerms from "./data/noResults.json";
 
 const chromedriver = require("chromedriver");
 
@@ -31,16 +31,12 @@ describe("My test suite", () => {
         await driver.sleep(1000);
     })
 
-    test("Open the main page by clicking on logo from Header", async () => {
-        await basePage.click(basePage.logo); // click on a logo in header
-        await basePage.checkLoadedPage(); // checking that main page has some elements
-        await driver.sleep(1000);
-    })
-
     // https://dmutah.atlassian.net/browse/QG4-3
     test("Open the main page", async () => {
+        await driver.get(basePage.url); // open main page
         await basePage.checkLoadedPage(); // checking that main page has some elements
     })
+
 
     // https://dmutah.atlassian.net/browse/QG4-4
     test("Search for an item", async () => {
@@ -48,6 +44,13 @@ describe("My test suite", () => {
         await basePage.search(searchTerm); // search itself
         await resultsPage.checkLoadedResults(); // checking that results page has some elements
         await resultsPage.checkResults(searchTerm); // validating results
+    })
+
+
+    test("Open the main page by clicking on logo from Header", async () => {
+        await basePage.click(basePage.logo); // click on a logo in header
+        await basePage.checkLoadedPage(); // checking that main page has some elements
+        await driver.sleep(1000);
     })
 
     // https://dmutah.atlassian.net/browse/QG4-5
@@ -60,6 +63,14 @@ describe("My test suite", () => {
         await resultsPage.checkResults(brandName); // validating updated results
     })
 
+    badSearchTerms.forEach((item) => {
+        test("No results for bad search terms", async () => {
+            console.log(item.term)
+            await basePage.search(item.term); // search itself
+            await resultsPage.checkNoResults();
+        })
+    })
+    
     // https://dmutah.atlassian.net/browse/QG4-7
     test("Open item page from results page", async () => {
         const searchTerm: string = "cooler"; // we're going to search for
@@ -73,19 +84,12 @@ describe("My test suite", () => {
         expect(await productTitles[0].getText()).toEqual(selectedItemText); // validating product title matches name of previously selected item on results page
     })
 
-    for(var term of badSearchTerms) {
-        test("No results for bad search terms", async () => {
-            await basePage.search(term.term); // search itself
-            await resultsPage.checkNoResults();
-        })
-    }
-
    test("Adding to cart from results page", async() => {
-    const searchTerm: string = "umbrella"; // we're going to search for
-    await basePage.search(searchTerm); // search itself
-    await resultsPage.checkLoadedResults(); // checking that results page has some elements
-    await resultsPage.addToCartShipping();
-    await cart.checkLoadedPage();
+        const searchTerm: string = "umbrella"; // we're going to search for
+        await basePage.search(searchTerm); // search itself
+        await resultsPage.checkLoadedResults(); // checking that results page has some elements
+        await resultsPage.addToCartShipping();
+        await cart.checkLoadedPage();
    })
 
 })

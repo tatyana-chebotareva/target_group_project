@@ -18,6 +18,8 @@ export class AuthPage extends BasePage{
     skipAddMobile: By = By.xpath('//*[text()="Skip"]');
 
     async signUserIn(email: string, password: string) : Promise<string> {
+        //await this.addKeys(this.email,"test@dvm.com");
+        //await this.addKeys(this.password,"EBpassword");
         await this.sendKeys(this.email,email);
         await this.sendKeys(this.password,password);
         await this.click(this.signInBtn);

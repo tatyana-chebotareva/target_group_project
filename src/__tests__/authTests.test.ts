@@ -1,12 +1,12 @@
-import { BasePage } from "../__tests__/pageObjects/BasePage";
-import { ResultsPage } from "../__tests__/pageObjects/ResultsPage";
-import { ItemPage } from "../__tests__/pageObjects/ItemPage";
+import { BasePage } from "./pageObjects/BasePage";
+import { ResultsPage } from "./pageObjects/ResultsPage";
+import { ItemPage } from "./pageObjects/ItemPage";
 import { WebDriver, Builder, Capabilities, By } from "selenium-webdriver";
 import { isJSDocTemplateTag, isLabeledStatement } from "typescript";
 import { Cart } from "./pageObjects/Cart";
 import { AuthPage } from "./pageObjects/AuthPage";
-import * as newUsers from "../__tests__/data/newUsers.json";
-import * as users from "../__tests__/data/users.json";
+import * as newUsers from "./data/newUsers.json";
+import * as users from "./data/users.json";
 
 
 const chromedriver = require("chromedriver");
