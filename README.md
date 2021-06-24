@@ -26,7 +26,7 @@ To run a specific test, use the command: `npx jest test_name`
 
 ## What Do We Test
 
-The functionality we tes:
+The functionality we test:
 1. Open the main page by navigating to target.com
 1. Open the main page by clicking on the logo from the Header
 1. Open cart page from the Header (validate, empty or not)
